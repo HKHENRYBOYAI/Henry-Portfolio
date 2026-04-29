@@ -374,8 +374,9 @@ const PROJECTS = [
     category: "工作與專案經歷",
     description: "公共事務部媒體製作、素材整合與社群管理案例。",
     image: "https://i.postimg.cc/VkbjHwyS/hai-ni-gen-she-ji.png",
-    link: "#",
-    tags: ["平面設計", "海尼根"]
+    link: "https://i.postimg.cc/VkbjHwyS/hai-ni-gen-she-ji.png",
+    tags: ["平面設計", "海尼根"],
+    isImage: true
   }
 ];
 
@@ -1153,7 +1154,7 @@ const WorksPage = () => {
 
 export default function App() {
   return (
-    <BrowserRouter basename="/Henry-Portfolio/">
+    <BrowserRouter>
       <div className="relative">
         <Navbar />
         <Routes>
