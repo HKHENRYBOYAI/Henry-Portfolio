@@ -1153,7 +1153,7 @@ const WorksPage = () => {
 
 export default function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/Henry-Portfolio/">
       <div className="relative">
         <Navbar />
         <Routes>
