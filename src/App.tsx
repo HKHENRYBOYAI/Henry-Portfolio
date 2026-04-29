@@ -11,14 +11,12 @@ import {
   Box, 
   Mail, 
   MapPin, 
-  ExternalLink, 
   Award, 
   GraduationCap, 
   Briefcase,
   Instagram,
   Youtube,
   Linkedin,
-  ChevronRight,
   Play,
   Smartphone,
   Layout,
@@ -27,9 +25,13 @@ import {
   ArrowLeft,
   Tv,
   MonitorPlay,
-  X
+  X,
+  Book,
+  ChevronLeft,
+  ChevronRight,
+  ExternalLink
 } from "lucide-react";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route, Link, useLocation } from "react-router-dom";
 
 // --- Data ---
@@ -60,8 +62,9 @@ const PROJECTS = [
     category: "競賽與獎項",
     description: "入圍作品。擔任整體的平面設計與圖片調光，學到了平面設計和主題結合的實作。",
     image: "https://i.postimg.cc/L605pRgr/1149-3095.jpg",
-    link: "#",
-    tags: ["平面設計", "圖片調光"]
+    link: "https://i.postimg.cc/L605pRgr/1149-3095.jpg",
+    tags: ["平面設計", "圖片調光"],
+    isImage: true
   },
   {
     id: 2,
@@ -289,17 +292,26 @@ const PROJECTS = [
     category: "劇情長片 / 攝影",
     description: "獲得第51屆藝美獎「電視戲劇類最佳長片」。擔任導演、攝影與剪輯。",
     image: "https://i.postimg.cc/Y0nNGNVL/Still-2025-09-12-011601-1-36-1.png",
-    link: "https://drive.google.com/file/d/1xUzco9r1siEfz1egHP_DwZRJ_j2NVMXj/view?usp=sharing",
+    link: "https://youtu.be/yNSRkhTBXkA",
     tags: ["最佳長片", "劇情片", "導演"]
   },
   {
     id: 25,
-    title: "Formosa Clash 畢業製作攝影集",
+    title: "畢業製作攝影集",
     category: "劇情長片 / 攝影",
-    description: "攝影集製作，擔任攝影。",
+    description: "畢業製作主題攝影集，紀錄光影與情感的瞬間。",
     image: "https://i.postimg.cc/0Q32zbnr/ying-mu-jie-tu-2026-04-21-ling-chen2-48-48.png",
     link: "https://drive.google.com/drive/folders/142TIZTDtFBm84C7p5QI3cQ1KHYcCprP?usp=sharing",
-    tags: ["攝影集", "攝影"]
+    tags: ["攝影集", "攝影"],
+    isBook: true,
+    pages: [
+      "https://i.postimg.cc/LXFmv6kM/ying-mu-jie-tu-2026-04-29-xia-wu1-02-58.png",
+      "https://i.postimg.cc/wTqTSvCt/ying-mu-jie-tu-2026-04-29-xia-wu1-03-19.png",
+      "https://i.postimg.cc/tCk7TP3s/ying-mu-jie-tu-2026-04-29-xia-wu1-03-39.png",
+      "https://i.postimg.cc/7YwfwX2h/ying-mu-jie-tu-2026-04-29-xia-wu1-03-55.png",
+      "https://i.postimg.cc/J4xtnJN0/ying-mu-jie-tu-2026-04-29-xia-wu1-04-05.png",
+      "https://i.postimg.cc/5Nb6bpCt/ying-mu-jie-tu-2026-04-29-xia-wu1-04-26.png"
+    ]
   },
   {
     id: 26,
@@ -486,6 +498,141 @@ const VideoModal = ({ isOpen, onClose, videoUrl }: { isOpen: boolean; onClose: (
   );
 };
 
+const ImageModal = ({ isOpen, onClose, project }: { isOpen: boolean; onClose: () => void; project: any }) => {
+  const [currentPage, setCurrentPage] = useState(0);
+
+  useEffect(() => {
+    if (isOpen) setCurrentPage(0);
+  }, [isOpen]);
+
+  if (!isOpen || !project) return null;
+
+  const isBook = project.isBook && project.pages && project.pages.length > 0;
+  const currentImage = isBook ? project.pages[currentPage] : project.image;
+
+  const nextPage = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (currentPage < project.pages.length - 1) {
+      setCurrentPage(prev => prev + 1);
+    }
+  };
+
+  const prevPage = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (currentPage > 0) {
+      setCurrentPage(prev => prev - 1);
+    }
+  };
+
+  return (
+    <AnimatePresence>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/95 backdrop-blur-xl"
+        onClick={onClose}
+      >
+        <button
+          onClick={onClose}
+          className="absolute top-6 right-6 z-[110] p-3 glass rounded-full hover:bg-white/10 transition-colors text-white shadow-2xl"
+        >
+          <X size={32} />
+        </button>
+        
+        <div className="relative w-full max-w-5xl flex items-center justify-center gap-4">
+          {isBook && currentPage > 0 && (
+            <button 
+              onClick={prevPage}
+              className="absolute left-0 z-[110] p-4 glass rounded-full text-white hover:bg-white/10 transition-all -translate-x-full hidden md:block"
+            >
+              <ChevronLeft size={32} />
+            </button>
+          )}
+
+          <motion.div
+            key={currentPage}
+            initial={{ 
+              rotateY: isBook ? -90 : -20, 
+              scale: 0.8, 
+              opacity: 0,
+              originX: 0
+            }}
+            animate={{ 
+              rotateY: 0, 
+              scale: 1, 
+              opacity: 1 
+            }}
+            exit={{ 
+              rotateY: isBook ? 90 : 20, 
+              scale: 0.8, 
+              opacity: 0 
+            }}
+            transition={{ type: "spring", damping: 25, stiffness: 120 }}
+            className="relative max-h-[90vh] w-full flex flex-col items-center justify-center"
+            onClick={(e) => e.stopPropagation()}
+            style={{ transformStyle: "preserve-3d" }}
+          >
+            <div className="relative group border-l-8 border-black/40 shadow-[30px_0_60px_rgba(0,0,0,0.6)] rounded-r-xl overflow-hidden bg-[#111]">
+              <img 
+                src={currentImage} 
+                alt={`${project.title} - Page ${currentPage + 1}`} 
+                className="max-w-full max-h-[80vh] object-contain"
+                referrerPolicy="no-referrer"
+              />
+              
+              {isBook && (
+                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 px-4 py-2 bg-black/60 backdrop-blur-md rounded-full text-[10px] text-white/80 font-bold">
+                  {currentPage + 1} / {project.pages.length}
+                </div>
+              )}
+            </div>
+
+            <div className="mt-8 flex items-center gap-6">
+              {isBook && (
+                <div className="flex gap-4">
+                  <button 
+                    disabled={currentPage === 0}
+                    onClick={prevPage}
+                    className={`px-6 py-2 rounded-full font-bold text-xs transition-all ${currentPage === 0 ? 'bg-white/5 text-white/20 cursor-not-allowed' : 'bg-white/10 text-white hover:bg-white/20'}`}
+                  >
+                    上一頁
+                  </button>
+                  <button 
+                    disabled={currentPage === project.pages.length - 1}
+                    onClick={nextPage}
+                    className={`px-6 py-2 rounded-full font-bold text-xs transition-all ${currentPage === project.pages.length - 1 ? 'bg-white/5 text-white/20 cursor-not-allowed' : 'bg-blue-600 text-white hover:bg-blue-500'}`}
+                  >
+                    下一頁
+                  </button>
+                </div>
+              )}
+              
+              <a 
+                href={project.link} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="px-6 py-2 bg-white/5 hover:bg-white/10 rounded-full font-bold text-xs text-white/60 transition-all flex items-center gap-2"
+              >
+                <ExternalLink size={14} /> 查看原始連結
+              </a>
+            </div>
+          </motion.div>
+
+          {isBook && currentPage < project.pages.length - 1 && (
+            <button 
+              onClick={nextPage}
+              className="absolute right-0 z-[110] p-4 glass rounded-full text-white hover:bg-white/10 transition-all translate-x-full hidden md:block"
+            >
+              <ChevronRight size={32} />
+            </button>
+          )}
+        </div>
+      </motion.div>
+    </AnimatePresence>
+  );
+};
+
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
@@ -547,228 +694,269 @@ const SectionHeading = ({ title, subtitle }: { title: string; subtitle?: string 
   </div>
 );
 
-const ProjectCard = ({ project, idx }: { project: any; idx: number; key?: any }) => (
-  <motion.div
-    initial={{ opacity: 0, y: 20 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true }}
-    transition={{ delay: idx * 0.1 }}
-    className="group relative glass rounded-2xl overflow-hidden hover:glow transition-all"
-  >
-    <div className="aspect-video overflow-hidden">
-      <img 
-        src={project.image} 
-        alt={project.title} 
-        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-        referrerPolicy="no-referrer"
-      />
-      <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-        <a href={project.link} target="_blank" rel="noopener noreferrer" className="p-4 bg-blue-600 rounded-full text-white hover:scale-110 transition-transform">
-          <Play fill="white" size={24} />
-        </a>
-      </div>
-    </div>
-    <div className="p-4 md:p-6">
-      <p className="text-[10px] text-blue-500 font-bold uppercase tracking-widest mb-1 md:mb-2">{project.category}</p>
-      <h3 className="text-[11px] md:text-xl font-bold mb-1 md:mb-2 leading-tight">{project.title}</h3>
-      <p className="text-[10px] md:text-sm text-gray-400 mb-3 md:mb-4 line-clamp-2">{project.description}</p>
-      <div className="flex flex-wrap gap-1.5 md:gap-2">
-        {project.tags.map((tag: string) => (
-          <span key={tag} className="px-1.5 py-0.5 bg-white/5 rounded text-[9px] text-gray-500 uppercase font-bold tracking-wider">
-            {tag}
-          </span>
-        ))}
-      </div>
-    </div>
-  </motion.div>
-);
+const ProjectCard = ({ project, idx, onOpenModal }: { project: any; idx: number; onOpenModal?: (p: any) => void; key?: any }) => {
+  const handleClick = (e: any) => {
+    if ((project.isBook || project.isImage) && onOpenModal) {
+      e.preventDefault();
+      onOpenModal(project);
+    }
+  };
 
-const Home = () => (
-  <div className="relative">
-    {/* Hero Section */}
-    <section className="relative h-screen flex items-center justify-center overflow-hidden">
-      <div className="absolute inset-0 z-0">
-        <img 
-          src="https://picsum.photos/seed/cinema/1920/1080?blur=5" 
-          alt="Hero Background" 
-          className="w-full h-full object-cover opacity-30"
-          referrerPolicy="no-referrer"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/50 to-[#050505]" />
-      </div>
-
-      <div className="relative z-10 text-center px-6">
-        <motion.p 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="text-blue-500 font-semibold uppercase tracking-[0.3em] mb-4"
-        >
-          Content Creator & Visual Artist
-        </motion.p>
-        <motion.h1 
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4 }}
-          className="text-5xl md:text-9xl font-black mb-8 tracking-tighter"
-        >
-          盧栢賢 <span className="text-gradient">HENRY LO</span>
-        </motion.h1>
-        <motion.div 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.8 }}
-          className="flex flex-wrap justify-center gap-3 md:gap-4"
-        >
-          <Link to="/works" className="px-6 py-3 md:px-8 md:py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-full text-sm md:text-base font-bold transition-all glow flex items-center gap-2">
-            View My Works <ChevronRight size={18} />
-          </Link>
-          <a href="#contact" className="px-6 py-3 md:px-8 md:py-4 glass hover:bg-white/10 rounded-full text-sm md:text-base font-bold transition-all">
-            Get In Touch
-          </a>
-        </motion.div>
-      </div>
-
-      <motion.div 
-        animate={{ y: [0, 10, 0] }}
-        transition={{ duration: 2, repeat: Infinity }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 opacity-30"
-      >
-        <div className="w-[1px] h-20 bg-gradient-to-b from-white to-transparent" />
-      </motion.div>
-    </section>
-
-    {/* About Section */}
-    <section id="about" className="py-24 px-6 max-w-7xl mx-auto">
-      <div className="grid md:grid-cols-2 gap-16 items-center">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          className="relative aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl"
-        >
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ delay: idx * 0.1 }}
+      className="group relative"
+      style={{ perspective: "1200px" }}
+    >
+      <div className={`glass rounded-2xl overflow-hidden hover:glow transition-all duration-700 ${project.isBook ? 'origin-left group-hover:rotate-y-[-15deg] group-hover:translate-x-4' : 'hover:-translate-y-2'}`}>
+        <div className="aspect-video overflow-hidden relative" onClick={handleClick}>
           <img 
-            src="https://i.postimg.cc/0Nnswb83/WEDQ83332.png" 
-            alt="Henry Lo" 
-            className="w-full h-full object-cover"
+            src={project.image} 
+            alt={project.title} 
+            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
             referrerPolicy="no-referrer"
           />
-          <div className="absolute inset-0 ring-1 ring-inset ring-white/10 rounded-2xl" />
-        </motion.div>
-        <div>
-          <SectionHeading title="個人簡介" subtitle="About Me" />
+          {project.isBook && (
+            <div className="absolute top-2 right-2 px-2 py-1 bg-blue-600/90 text-[8px] md:text-[10px] text-white font-bold rounded flex items-center gap-1 shadow-lg z-20">
+              <Book size={10} /> 翻閱攝影集
+            </div>
+          )}
+          <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center z-10">
+            {project.isBook || project.isImage ? (
+              <button
+                onClick={handleClick}
+                className="p-4 bg-blue-600 rounded-full text-white hover:scale-110 transition-transform flex items-center gap-2 font-bold text-sm"
+              >
+                {project.isBook ? <Book size={20} /> : <Palette size={20} />}
+                {project.isBook ? "開啟圖集" : "放大閱讀"}
+              </button>
+            ) : (
+              <a 
+                href={project.link} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="p-4 bg-blue-600 rounded-full text-white hover:scale-110 transition-transform flex items-center gap-2 font-bold text-sm"
+              >
+                <Play fill="white" size={24} />
+              </a>
+            )}
+          </div>
+        </div>
+        <div className="p-4 md:p-6" onClick={handleClick}>
+          <p className="text-[10px] text-blue-500 font-bold uppercase tracking-widest mb-1 md:mb-2">{project.category}</p>
+          <h3 className="text-[11px] md:text-xl font-bold mb-1 md:mb-2 leading-tight">{project.title}</h3>
+          <p className="text-[10px] md:text-sm text-gray-400 mb-3 md:mb-4 line-clamp-2">{project.description}</p>
+          <div className="flex flex-wrap gap-1.5 md:gap-2">
+            {project.tags.map((tag: string) => (
+              <span key={tag} className="px-1.5 py-0.5 bg-white/5 rounded text-[9px] text-gray-500 uppercase font-bold tracking-wider">
+                {tag}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  );
+};
+
+const Home = () => {
+  const [selectedProject, setSelectedProject] = useState<any>(null);
+
+  return (
+    <div className="relative">
+      {/* Hero Section */}
+      <section className="relative h-screen flex items-center justify-center overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          <img 
+            src="https://picsum.photos/seed/cinema/1920/1080?blur=5" 
+            alt="Hero Background" 
+            className="w-full h-full object-cover opacity-30"
+            referrerPolicy="no-referrer"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/50 to-[#050505]" />
+        </div>
+
+        <div className="relative z-10 text-center px-6">
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-lg md:text-xl text-gray-400 leading-relaxed mb-6 md:mb-8"
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="text-blue-500 font-semibold uppercase tracking-[0.3em] mb-4"
           >
-            我是一個喜歡探索與創新的，對新事物充滿興趣，總是願意嘗試不同的風格與敘事法。我空餘時間樂於學習新技能。從設計、攝影、剪輯、AI產製等。我的想法是我有什麼是對未來工作有用的，但還沒學到的都要去學！持續進步是必須的。
+            Content Creator & Visual Artist
           </motion.p>
-          <div className="grid grid-cols-2 gap-4 md:gap-8">
-            <div>
-              <h4 className="text-white font-bold mb-2 flex items-center gap-2">
-                <GraduationCap className="text-blue-500" size={20} /> 教育背景
-              </h4>
-              <div className="space-y-4">
-                <div>
-                  <p className="text-sm text-gray-300 font-bold">國立政治大學</p>
-                  <p className="text-xs text-gray-500">傳播學院傳播碩士學位學程</p>
-                  <p className="text-[10px] text-blue-500/80 font-medium tracking-wider">已錄取，2026年入學</p>
-                </div>
-                <div>
-                  <p className="text-sm text-gray-300 font-bold">銘傳大學</p>
-                  <p className="text-xs text-gray-500">新媒體暨傳播管理學系</p>
-                  <p className="text-[10px] text-gray-400">2022 - 2026</p>
-                  <p className="text-[10px] text-blue-400 font-bold">GPA : 3.9 / 4.0</p>
-                </div>
-                <div>
-                  <p className="text-sm text-gray-300 font-bold">香港知專設計學院</p>
-                  <p className="text-xs text-gray-500">APL電影及超媒體</p>
-                  <p className="text-[10px] text-gray-400">2020 - 2021</p>
-                  <p className="text-[10px] text-yellow-500/80 font-bold italic">榮獲應用學習獎學金</p>
+          <motion.h1 
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+            className="text-5xl md:text-9xl font-black mb-8 tracking-tighter"
+          >
+            盧栢賢 <span className="text-gradient">HENRY LO</span>
+          </motion.h1>
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.8 }}
+            className="flex flex-wrap justify-center gap-3 md:gap-4"
+          >
+            <Link to="/works" className="px-6 py-3 md:px-8 md:py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-full text-sm md:text-base font-bold transition-all glow flex items-center gap-2">
+              View My Works <ChevronRight size={18} />
+            </Link>
+            <a href="#contact" className="px-6 py-3 md:px-8 md:py-4 glass hover:bg-white/10 rounded-full text-sm md:text-base font-bold transition-all">
+              Get In Touch
+            </a>
+          </motion.div>
+        </div>
+
+        <motion.div 
+          animate={{ y: [0, 10, 0] }}
+          transition={{ duration: 2, repeat: Infinity }}
+          className="absolute bottom-10 left-1/2 -translate-x-1/2 opacity-30"
+        >
+          <div className="w-[1px] h-20 bg-gradient-to-b from-white to-transparent" />
+        </motion.div>
+      </section>
+
+      {/* About Section */}
+      <section id="about" className="py-24 px-6 max-w-7xl mx-auto">
+        <div className="grid md:grid-cols-2 gap-16 items-center">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            className="relative aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl"
+          >
+            <img 
+              src="https://i.postimg.cc/0Nnswb83/WEDQ83332.png" 
+              alt="Henry Lo" 
+              className="w-full h-full object-cover"
+              referrerPolicy="no-referrer"
+            />
+            <div className="absolute inset-0 ring-1 ring-inset ring-white/10 rounded-2xl" />
+          </motion.div>
+          <div>
+            <SectionHeading title="個人簡介" subtitle="About Me" />
+            <motion.p 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-lg md:text-xl text-gray-400 leading-relaxed mb-6 md:mb-8"
+            >
+              我是一個喜歡探索與創新的，對新事物充滿興趣，總是願意嘗試不同的風格與敘事法。我空餘時間樂於學習新技能。從設計、攝影、剪輯、AI產製等。我的想法是我有什麼是對未來工作有用的，但還沒學到的都要去學！持續進步是必須的。
+            </motion.p>
+            <div className="grid grid-cols-2 gap-4 md:gap-8">
+              <div>
+                <h4 className="text-white font-bold mb-2 flex items-center gap-2">
+                  <GraduationCap className="text-blue-500" size={20} /> 教育背景
+                </h4>
+                <div className="space-y-4">
+                  <div>
+                    <p className="text-sm text-gray-300 font-bold">國立政治大學</p>
+                    <p className="text-xs text-gray-500">傳播學院傳播碩士學位學程</p>
+                    <p className="text-[10px] text-blue-500/80 font-medium tracking-wider">已錄取，2026年入學</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-300 font-bold">銘傳大學</p>
+                    <p className="text-xs text-gray-500">新媒體暨傳播管理學系</p>
+                    <p className="text-[10px] text-gray-400">2022 - 2026</p>
+                    <p className="text-[10px] text-blue-400 font-bold">GPA : 3.9 / 4.0</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-300 font-bold">香港知專設計學院</p>
+                    <p className="text-xs text-gray-500">APL電影及超媒體</p>
+                    <p className="text-[10px] text-gray-400">2020 - 2021</p>
+                    <p className="text-[10px] text-yellow-500/80 font-bold italic">榮獲應用學習獎學金</p>
+                  </div>
                 </div>
               </div>
+              <div>
+                <h4 className="text-white font-bold mb-2 flex items-center gap-2">
+                  <MapPin className="text-blue-500" size={20} /> 所在地
+                </h4>
+                <p className="text-sm text-gray-500">新北市三重區</p>
+              </div>
             </div>
-            <div>
-              <h4 className="text-white font-bold mb-2 flex items-center gap-2">
-                <MapPin className="text-blue-500" size={20} /> 所在地
-              </h4>
-              <p className="text-sm text-gray-500">新北市三重區</p>
+          </div>
+        </div>
+      </section>
+
+      {/* Experience & Awards */}
+      <section id="experience" className="py-24 px-6">
+        <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-16">
+          <div>
+            <SectionHeading title="工作經歷" subtitle="Experience" />
+          <div className="grid grid-cols-2 md:grid-cols-1 gap-x-4 gap-y-10 relative before:hidden md:before:block before:absolute before:left-[19px] before:top-2 before:bottom-2 before:w-[1px] before:bg-white/10">
+              {EXPERIENCE.map((exp, idx) => (
+                <motion.div 
+                  key={idx}
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  className="relative md:pl-12"
+                >
+                  <div className="hidden md:flex absolute left-0 top-1 w-10 h-10 rounded-full glass items-center justify-center z-10">
+                    <Briefcase size={16} className="text-blue-500" />
+                  </div>
+                  <p className="text-[10px] md:text-xs text-blue-500 font-bold mb-1">{exp.date}</p>
+                  <h4 className="text-sm md:text-xl font-bold leading-tight">{exp.company}</h4>
+                  <p className="text-[11px] md:text-sm text-gray-400 mb-1 md:mb-2">{exp.role}</p>
+                  <p className="text-[10px] md:text-sm text-gray-500 line-clamp-3">{exp.desc}</p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+          <div>
+            <SectionHeading title="競賽與獎項" subtitle="Achievements" />
+            <div className="grid grid-cols-2 md:grid-cols-1 gap-3 md:gap-4">
+              {AWARDS.map((award, idx) => (
+                <motion.div 
+                  key={idx}
+                  initial={{ opacity: 0, x: 20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: idx * 0.1 }}
+                  className="p-3 md:p-6 glass rounded-2xl flex flex-col md:flex-row items-center md:items-start gap-2 md:gap-4 hover:bg-white/5 transition-colors text-center md:text-left"
+                >
+                  <div className="p-2 md:p-3 bg-blue-600/10 rounded-xl text-blue-500">
+                    <Award size={16} className="md:w-5 md:h-5" />
+                  </div>
+                  <p className="text-[10px] md:text-sm font-medium text-gray-300 leading-tight">{award}</p>
+                </motion.div>
+              ))}
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    {/* Experience & Awards */}
-    <section id="experience" className="py-24 px-6">
-      <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-16">
-        <div>
-          <SectionHeading title="工作經歷" subtitle="Experience" />
-        <div className="grid grid-cols-2 md:grid-cols-1 gap-x-4 gap-y-10 relative before:hidden md:before:block before:absolute before:left-[19px] before:top-2 before:bottom-2 before:w-[1px] before:bg-white/10">
-            {EXPERIENCE.map((exp, idx) => (
-              <motion.div 
-                key={idx}
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                className="relative md:pl-12"
-              >
-                <div className="hidden md:flex absolute left-0 top-1 w-10 h-10 rounded-full glass items-center justify-center z-10">
-                  <Briefcase size={16} className="text-blue-500" />
-                </div>
-                <p className="text-[10px] md:text-xs text-blue-500 font-bold mb-1">{exp.date}</p>
-                <h4 className="text-sm md:text-xl font-bold leading-tight">{exp.company}</h4>
-                <p className="text-[11px] md:text-sm text-gray-400 mb-1 md:mb-2">{exp.role}</p>
-                <p className="text-[10px] md:text-sm text-gray-500 line-clamp-3">{exp.desc}</p>
-              </motion.div>
-            ))}
+      {/* Works Section (Featured) */}
+      <section id="works" className="py-24 px-6 bg-[#080808]">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex justify-between items-end mb-12">
+            <SectionHeading title="精選作品" subtitle="Portfolio" />
+            <Link to="/works" className="mb-12 text-blue-500 hover:text-blue-400 font-bold flex items-center gap-2 group">
+              View All <ChevronRight size={18} className="group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
+            {[2, 7, 8, 36, 13, 24].map((id, idx) => {
+              const project = PROJECTS.find(p => p.id === id);
+              return project ? <ProjectCard key={project.id} project={project} idx={idx} onOpenModal={setSelectedProject} /> : null;
+            })}
           </div>
         </div>
-        <div>
-          <SectionHeading title="競賽與獎項" subtitle="Achievements" />
-          <div className="grid grid-cols-2 md:grid-cols-1 gap-3 md:gap-4">
-            {AWARDS.map((award, idx) => (
-              <motion.div 
-                key={idx}
-                initial={{ opacity: 0, x: 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: idx * 0.1 }}
-                className="p-3 md:p-6 glass rounded-2xl flex flex-col md:flex-row items-center md:items-start gap-2 md:gap-4 hover:bg-white/5 transition-colors text-center md:text-left"
-              >
-                <div className="p-2 md:p-3 bg-blue-600/10 rounded-xl text-blue-500">
-                  <Award size={16} className="md:w-5 md:h-5" />
-                </div>
-                <p className="text-[10px] md:text-sm font-medium text-gray-300 leading-tight">{award}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
+      </section>
 
-    {/* Works Section (Featured) */}
-    <section id="works" className="py-24 px-6 bg-[#080808]">
-      <div className="max-w-7xl mx-auto">
-        <div className="flex justify-between items-end mb-12">
-          <SectionHeading title="精選作品" subtitle="Portfolio" />
-          <Link to="/works" className="mb-12 text-blue-500 hover:text-blue-400 font-bold flex items-center gap-2 group">
-            View All <ChevronRight size={18} className="group-hover:translate-x-1 transition-transform" />
-          </Link>
-        </div>
-        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
-          {[2, 7, 8, 36, 13, 24].map((id, idx) => {
-            const project = PROJECTS.find(p => p.id === id);
-            return project ? <ProjectCard key={project.id} project={project} idx={idx} /> : null;
-          })}
-        </div>
-      </div>
-    </section>
-
-    {/* Skills Section */}
-    <section id="skills" className="py-24 px-6 max-w-7xl mx-auto bg-[#080808] rounded-3xl mb-12">
+      <ImageModal 
+        isOpen={!!selectedProject} 
+        onClose={() => setSelectedProject(null)} 
+        project={selectedProject} 
+      />
+      
+      {/* Skills Section */}
+      <section id="skills" className="py-24 px-6 max-w-7xl mx-auto bg-[#080808] rounded-3xl mb-12">
       <SectionHeading title="專業技能" subtitle="Expertise" />
       <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
         {SKILLS.map((skill, idx) => (
@@ -852,10 +1040,12 @@ const Home = () => (
       </motion.div>
     </section>
   </div>
-);
+  );
+};
 
 const WorksPage = () => {
   const [selectedVideo, setSelectedVideo] = useState<string | null>(null);
+  const [selectedProject, setSelectedProject] = useState<any>(null);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -912,7 +1102,7 @@ const WorksPage = () => {
             <h3 className="text-sm md:text-2xl font-bold mb-4 md:mb-8 border-l-4 border-blue-500 pl-4 uppercase tracking-wider">{category}</h3>
             <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
               {PROJECTS.filter(p => p.category === category).map((project, idx) => (
-                <ProjectCard key={project.id} project={project} idx={idx} />
+                <ProjectCard key={project.id} project={project} idx={idx} onOpenModal={setSelectedProject} />
               ))}
             </div>
           </div>
@@ -951,13 +1141,19 @@ const WorksPage = () => {
         onClose={() => setSelectedVideo(null)} 
         videoUrl={selectedVideo || ""} 
       />
+
+      <ImageModal 
+        isOpen={!!selectedProject} 
+        onClose={() => setSelectedProject(null)} 
+        project={selectedProject} 
+      />
     </div>
   );
 };
 
 export default function App() {
   return (
-    <BrowserRouter basename="/Henry-Portfolio/">
+    <BrowserRouter>
       <div className="relative">
         <Navbar />
         <Routes>
