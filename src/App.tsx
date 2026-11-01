@@ -30,6 +30,7 @@ function viewerFor(w: Work): Viewer | null {
   return null;
 }
 
+const inCat = (w: Work, c: Category) => w.cat === c || (w.also ?? []).includes(c);
 const catLabel = (c: Category) => CATEGORIES.find((x) => x.key === c)?.label ?? '';
 
 // ---------- small pieces ----------
@@ -191,7 +192,7 @@ export default function App() {
   const close = useCallback(() => setViewer(null), []);
 
   const byId = useMemo(() => Object.fromEntries(WORKS.map((w) => [w.id, w])), []);
-  const shown = filter === 'all' ? WORKS : WORKS.filter((w) => w.cat === filter);
+  const shown = filter === 'all' ? WORKS : WORKS.filter((w) => inCat(w, filter));
   const note = CATEGORIES.find((c) => c.key === filter)?.note;
   const featured = FEATURED.map((f) => ({ ...f, work: byId[f.id] })).filter((f) => f.work);
   const showreelId = youtubeId(SHOWREEL);
@@ -319,7 +320,7 @@ export default function App() {
           </div>
           <div className="filters" role="group" aria-label="依專長篩選">
             {CATEGORIES.map((c) => {
-              const n = c.key === 'all' ? WORKS.length : WORKS.filter((w) => w.cat === c.key).length;
+              const n = c.key === 'all' ? WORKS.length : WORKS.filter((w) => inCat(w, c.key as Category)).length;
               const active = filter === c.key;
               return (
                 <button key={c.key} type="button" aria-pressed={active} className={`chip ${active ? 'active' : ''}`} onClick={() => setFilter(c.key)}>
