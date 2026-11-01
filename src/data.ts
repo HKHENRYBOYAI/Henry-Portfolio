@@ -69,6 +69,7 @@ export const WORKS: Work[] = [
   { id: 'wudeng', cat: 'motion', title: '五燈有請', role: '攝影｜新北校園廣告人', meta: '2025', img: 'https://i.postimg.cc/rwtSYkBb/wu-deng-jiang.png', link: 'https://youtu.be/irGChK3z9jk', award: '30強入圍' },
   { id: 'chiyin', cat: 'motion', title: '痴癮', role: '燈光｜犯罪預防創意短片', meta: '2024', img: 'https://i.postimg.cc/QtCDDhQr/VS-You-Tube-113-0-09.jpg', link: 'https://youtu.be/1hFn1yuq1kc', award: '大學專組銅質獎' },
   { id: 'wedding', cat: 'motion', title: '婚禮主持人行銷短影音', role: '拍攝・剪輯', meta: '短影音', img: 'https://i.postimg.cc/RFYBVyR8/ying-mu-jie-tu-2026-04-21-ling-chen2-02-32.png', link: 'https://www.instagram.com/reels/DPd-1nVCayX/' },
+  { id: 'weddingplanner', cat: 'motion', title: '婚禮總召行銷短影音', role: '拍攝・剪輯', meta: '短影音', img: `${base}photos/wedding-planner.jpg`, pos: 'center 42%', link: 'https://www.instagram.com/reel/DXjG5tYkd7w/' },
   { id: 'liveenglish', cat: 'motion', title: 'Live English 英語課程廣告', role: '拍攝・剪輯', meta: '廣告', img: 'https://i.postimg.cc/W47PRtCC/ying-mu-jie-tu-2026-04-21-ling-chen1-19-02.png', link: 'https://drive.google.com/file/d/1czH9GzLWd3NmWs0JGVSw75irpvMWh-TZ/view' },
   { id: 'ycoo', cat: 'motion', title: 'ycoorobot 玩具廣告', role: '拍攝・剪接｜定格動畫', meta: 'Reels', img: 'https://i.postimg.cc/8kLKCxt3/ying-mu-jie-tu-2026-04-21-ling-chen1-49-59.png', link: 'https://www.instagram.com/reel/C0jltvYM-ev/' },
 
