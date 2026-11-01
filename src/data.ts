@@ -74,7 +74,7 @@ export const WORKS: Work[] = [
 
   { id: 'dream', cat: 'design', title: '這裡是夢想開始的地方', role: '整體設計・繪圖・攝影', meta: '海報・2024', img: 'https://i.postimg.cc/0QK8m9bk/unnamed.jpg', link: 'https://sites.google.com/view/2024posterdesign/%E5%BE%97%E7%8D%8E%E4%BD%9C%E5%93%81', award: '校園創意生活海報 第一名', pages: ['https://i.postimg.cc/0QK8m9bk/unnamed.jpg'] },
   { id: 'tradition', cat: 'design', title: '傳統中創新', role: '平面設計・圖片調光', meta: '海報・2023', img: 'https://i.postimg.cc/L605pRgr/1149-3095.jpg', link: 'https://i.postimg.cc/L605pRgr/1149-3095.jpg', award: '金匠獎設計賽 入圍', pages: ['https://i.postimg.cc/L605pRgr/1149-3095.jpg'] },
-  { id: 'teacher2026', cat: 'design', title: '2026 優良教師頒獎典禮', role: '主視覺動態', meta: '2026', img: 'https://i.ytimg.com/vi/D32Dvojr1VI/hqdefault.jpg', link: 'https://youtu.be/D32Dvojr1VI' },
+  { id: 'teacher2026', cat: 'design', title: '2026 優良教師頒獎典禮', role: '主視覺動態', meta: '2026', img: `${base}photos/teacher2026.jpg`, link: 'https://youtu.be/D32Dvojr1VI' },
   { id: 'teacher', cat: 'design', title: '教育部師鐸獎 表揚大會', role: '背景動畫・動態特效', meta: '2024', img: 'https://i.postimg.cc/2SB4XYpN/shi-yi-jiang.png', link: 'https://drive.google.com/file/d/1tRapIRMu4WzXr-j-qBHiL3pdk7kPM9Mb/view?usp=sharing' },
   { id: 'wmg', cat: 'design', title: '2025 雙北世壯運 轉播', role: 'Graphics Operator・虛擬攝影棚', meta: '2025', img: 'https://i.postimg.cc/wjshbzKB/shi-zhuang-yun.png', link: 'https://youtu.be/47Q5yZvX-pw' },
   { id: '3d', cat: 'design', title: '3D 個人作品', role: 'Blender 建模・動態', meta: '3D', img: 'https://i.postimg.cc/s2d5kLyQ/3D.png', link: 'https://youtu.be/vTF4hk4pOIw' },
