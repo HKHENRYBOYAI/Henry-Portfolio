@@ -1,20 +1,23 @@
 <!doctype html>
-<html lang="en">
+<html lang="zh-Hant-TW">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    
-    <!-- ✅ 加入這一行 -->
-    <meta http-equiv="Content-Security-Policy" 
-      content="default-src 'self'; 
-               script-src 'self' 'unsafe-eval' 'unsafe-inline'; 
-               style-src 'self' 'unsafe-inline'; 
-               img-src * data: blob:; 
-               media-src *; 
-               connect-src *; 
-               frame-src *;">
-    
-    <title>Henry's Portfolio</title>
+    <meta name="description" content="盧栢賢 Henry Lo — 影片企劃、剪接、動態攝影與平面攝影作品集。" />
+    <meta name="theme-color" content="#0F0F0E" />
+    <meta http-equiv="Content-Security-Policy"
+      content="default-src 'self';
+               script-src 'self' 'unsafe-eval' 'unsafe-inline';
+               style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+               font-src 'self' https://fonts.gstatic.com;
+               img-src * data: blob:;
+               media-src *;
+               connect-src *;
+               frame-src https://www.youtube-nocookie.com https://www.youtube.com;">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@600;900&family=Noto+Sans+TC:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" />
+    <title>盧栢賢 Henry Lo｜作品集</title>
   </head>
   <body>
     <div id="root"></div>
