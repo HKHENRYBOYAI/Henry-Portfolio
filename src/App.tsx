@@ -332,7 +332,7 @@ export default function App() {
           <div className="grid">
             {shown.map((w) => (
               <WorkLink key={w.id} work={w} onOpen={setViewer} className="card">
-                <Thumb work={w} />
+                <Thumb work={w} pos={w.pos} />
                 <p className="mono meta">{catLabel(w.cat)} · {w.meta}</p>
                 <h3 className="ctitle h4">{w.title}</h3>
                 <p className="muted sm">{w.role}</p>

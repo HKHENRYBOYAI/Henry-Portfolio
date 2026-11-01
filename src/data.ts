@@ -18,6 +18,7 @@ export interface Work {
   link: string;
   award?: string;
   pages?: string[];
+  pos?: string; // 縮圖裁切位置，例如 'center 55%'
 }
 
 const base = import.meta.env.BASE_URL;
@@ -75,6 +76,7 @@ export const WORKS: Work[] = [
   { id: '3d', cat: 'design', title: '3D 個人作品', role: 'Blender 建模・動態', meta: '3D', img: 'https://i.postimg.cc/s2d5kLyQ/3D.png', link: 'https://youtu.be/vTF4hk4pOIw' },
   { id: 'loser', cat: 'design', title: '《LOSER》', role: '2D 平面動畫', meta: '動畫', img: 'https://i.postimg.cc/nhP3Xx7X/ying-mu-jie-tu-2026-04-21-ling-chen1-25-10.png', link: 'https://youtu.be/rX4QVuttz8A' },
 
+  { id: 'cpause', cat: 'brand', title: '海邊有刺｜刺日談', role: '社群選題・內容企劃・限動與貼文製作', meta: '2026', img: `${base}photos/cpause.jpg`, pos: 'center 52%', link: 'https://www.instagram.com/c.pause_tw/' },
   { id: 'heineken', cat: 'brand', title: '海尼根 社群與短影音', role: '內容企劃・社群經營', meta: '2025', img: 'https://i.postimg.cc/MZRGrYgq/2a0f6ec65c8f24847e8131e07f6492f7.png', link: 'https://www.instagram.com/reel/DQqDTnvk6yx/' },
   { id: 'dawu', cat: 'brand', title: '海尼根 × 大武山職場新人獎', role: '開場影片 拍攝・剪輯', meta: '2025', img: 'https://i.postimg.cc/tCp9vGhP/ying-mu-jie-tu-2026-04-21-shang-wu11-45-10.png', link: 'https://drive.google.com/file/d/1swMAm-KPya1MJ3SMtWv6M91dgSdbezCH/view?usp=sharing' },
   { id: 'heinekendesign', cat: 'brand', title: '海尼根 平面設計與素材整合', role: '海報・平面・素材', meta: '2025', img: 'https://i.postimg.cc/VkbjHwyS/hai-ni-gen-she-ji.png', link: 'https://i.postimg.cc/VkbjHwyS/hai-ni-gen-she-ji.png', pages: ['https://i.postimg.cc/VkbjHwyS/hai-ni-gen-she-ji.png'] },
