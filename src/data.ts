@@ -21,7 +21,7 @@ export interface Work {
 }
 
 const base = import.meta.env.BASE_URL;
-const fencing = Array.from({ length: 9 }, (_, i) => `${base}photos/fencing/${String(i + 1).padStart(2, '0')}.jpg`);
+const fencing = Array.from({ length: 7 }, (_, i) => `${base}photos/fencing/${String(i + 3).padStart(2, '0')}.jpg`);
 
 export const CATEGORIES: { key: Category | 'all'; label: string; note: string }[] = [
   { key: 'all', label: '全部', note: '依專長篩選。影片可在站內播放，攝影作品可直接翻閱。' },
@@ -52,7 +52,7 @@ export const WORKS: Work[] = [
   { id: 'podcast', cat: 'edit', title: '《無界》性平議題 Podcast', role: '企劃・攝影・剪輯', meta: '校內', img: 'https://i.postimg.cc/y6hgxT9T/ying-mu-jie-tu-2026-04-21-ling-chen1-43-40.png', link: 'https://youtu.be/fI4A_cIn0B8' },
 
   { id: 'fencing', cat: 'photo', title: '全中運／全大運 擊劍', role: '轉播團隊攝影', meta: '運動攝影', img: 'https://i.postimg.cc/kgtxhCrJ/quan-zhong-yun-she-ying.png', link: 'https://drive.google.com/drive/folders/1GHPm56-B7MPqOGDLDF0G27n1HNKKkxN1?usp=sharing', pages: fencing },
-  { id: 'formosa', cat: 'photo', title: 'Formosa Clash', role: '攝影｜全英文指導外籍模特', meta: '畢業製作攝影集', img: 'https://i.postimg.cc/0Q32zbnr/ying-mu-jie-tu-2026-04-21-ling-chen2-48-48.png', link: 'https://drive.google.com/drive/folders/142TIZTDtFBm84C7p5QI3cQ1KHYcCprP?usp=sharing', pages: [
+  { id: 'formosa', cat: 'photo', title: 'Formosa Clash', role: '攝影｜全英文指導外籍模特', meta: '畢業製作攝影集', img: 'https://i.postimg.cc/0Q32zbnr/ying-mu-jie-tu-2026-04-21-ling-chen2-48-48.png', link: 'https://drive.google.com/drive/folders/142T-IZTDtFBm84C7p5QI3cQ1KHYcCprP?usp=sharing', pages: [
     'https://i.postimg.cc/LXFmv6kM/ying-mu-jie-tu-2026-04-29-xia-wu1-02-58.png',
     'https://i.postimg.cc/wTqTSvCt/ying-mu-jie-tu-2026-04-29-xia-wu1-03-19.png',
     'https://i.postimg.cc/tCk7TP3s/ying-mu-jie-tu-2026-04-29-xia-wu1-03-39.png',
@@ -115,4 +115,4 @@ export const AWARDS = [
 
 export const SHOWREEL = 'https://youtu.be/yjDfz0IFROA';
 export const HERO_STILL = 'https://i.postimg.cc/Y0nNGNVL/Still-2025-09-12-011601-1-36-1.png';
-export const PORTRAIT = 'https://i.postimg.cc/0Nnswb83/WEDQ83332.png';
+export const PORTRAIT = `${base}photos/portrait.jpg`;

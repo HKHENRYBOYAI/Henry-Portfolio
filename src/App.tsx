@@ -82,6 +82,7 @@ function Thumb({ work, pos }: { work: Work; pos?: string }) {
 function ViewerModal({ viewer, onClose }: { viewer: Viewer; onClose: () => void }) {
   const [page, setPage] = useState(0);
   const [dir, setDir] = useState<1 | -1>(1);
+  const [failed, setFailed] = useState<Record<number, boolean>>({});
   const closeRef = useRef<HTMLButtonElement>(null);
   const total = viewer.kind === 'book' ? viewer.pages.length : 0;
 
@@ -155,14 +156,22 @@ function ViewerModal({ viewer, onClose }: { viewer: Viewer; onClose: () => void 
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="m15 18-6-6 6-6" /></svg>
           </button>
           <div className="page-stage">
-            <img
-              key={page}
-              className={`page ${dir === 1 ? 'flip-next' : 'flip-prev'}`}
-              src={viewer.pages[page]}
-              alt={`${viewer.title} 第 ${page + 1} 頁`}
-              decoding="async"
-              referrerPolicy="no-referrer"
-            />
+            {failed[page] ? (
+              <div className="page-error">
+                <p>這一頁的圖片暫時無法載入。</p>
+                <a href={viewer.link} target="_blank" rel="noopener noreferrer" className="pill outline">到原始連結看完整作品</a>
+              </div>
+            ) : (
+              <img
+                key={page}
+                className={`page ${dir === 1 ? 'flip-next' : 'flip-prev'}`}
+                src={viewer.pages[page]}
+                alt={`${viewer.title} 第 ${page + 1} 頁`}
+                decoding="async"
+                referrerPolicy="no-referrer"
+                onError={() => setFailed((f) => ({ ...f, [page]: true }))}
+              />
+            )}
           </div>
           <button type="button" className="icon-btn book-nav" aria-label="下一頁" disabled={page === total - 1} onClick={() => go(1)}>
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="m9 18 6-6-6-6" /></svg>
@@ -409,7 +418,7 @@ export default function App() {
               </div>
               <div>
                 <h3 className="mono label">CERTIFICATES</h3>
-                <p className="soft sm loose">多益 760 分<br />Google Analytics Certification<br />語言：中文、粵語、英文、日文（基礎）</p>
+                <p className="soft sm loose">多益 760 分<br />Google Analytics Certification<br />語言：中文、粵語、英文</p>
               </div>
             </div>
           </div>
@@ -420,14 +429,21 @@ export default function App() {
       <section id="contact" className="contact">
         <div className="container contact-inner">
           <p className="mono kicker accent-text">CONTACT</p>
-          <h2 className="contact-title">有案子想聊？</h2>
-          <a href="mailto:henrypakpak@gmail.com" className="contact-mail">henrypakpak@gmail.com</a>
-          <div className="contact-links">
-            <a className="chip" href="tel:+886933921903">0933 921 903</a>
-            <a className="chip" href="https://linktr.ee/pakyau" target="_blank" rel="noopener noreferrer">Linktree</a>
-            <a className="chip" href="https://www.instagram.com/pakyau_photography/" target="_blank" rel="noopener noreferrer">Instagram 攝影</a>
-            <a className="chip" href="https://www.threads.com/@_dumbcam_" target="_blank" rel="noopener noreferrer">DUMBCAM Threads</a>
-          </div>
+          <h2 className="contact-title">聯絡方式</h2>
+          <dl className="contact-list">
+            <div>
+              <dt className="mono label">EMAIL</dt>
+              <dd><a href="mailto:henrypakpak@gmail.com">henrypakpak@gmail.com</a></dd>
+            </div>
+            <div>
+              <dt className="mono label">手機</dt>
+              <dd><a href="tel:+886933921903">0933 921 903</a></dd>
+            </div>
+            <div>
+              <dt className="mono label">LINE</dt>
+              <dd>@hkhenryboy</dd>
+            </div>
+          </dl>
         </div>
         <footer className="container mono footer">
           <span>© 2026 HENRY LO 盧栢賢</span>
