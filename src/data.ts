@@ -83,7 +83,7 @@ export const WORKS: Work[] = [
 
 // 精選作品：第一個是大圖，第 2–3 個在右側，第 4–6 個在下排
 export const FEATURED: { id: string; badge?: string; desc: string }[] = [
-  { id: 'alien', badge: '第 51 屆藝美獎 電視戲劇類最佳長片', desc: '劇情長片｜導演・編劇・攝影・剪輯。第一次拍多主角長片，從規劃到執行處理大量製片與行政問題。' },
+  { id: 'alien', badge: '第 51 屆藝美獎 電視戲劇類最佳長片', desc: '劇情長片｜導演・編劇・攝影・剪輯。第一次拍多主角長片，從規劃到執行的嘗試。' },
   { id: 'harbor', badge: '海洋保育 YTR 最佳年度創作獎', desc: '編劇・導演・攝影・剪輯｜2024' },
   { id: 'dawu', badge: '品牌特案', desc: '頒獎開場影片 拍攝・剪輯｜2025' },
   { id: 'jg', desc: '剪輯・2D 動畫解析財經知識｜2024' },
