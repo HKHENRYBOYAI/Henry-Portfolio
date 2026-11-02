@@ -75,6 +75,7 @@ export const WORKS: Work[] = [
 
   { id: 'dream', cat: 'design', title: '這裡是夢想開始的地方', role: '整體設計・繪圖・攝影', meta: '海報・2024', img: 'https://i.postimg.cc/0QK8m9bk/unnamed.jpg', link: 'https://sites.google.com/view/2024posterdesign/%E5%BE%97%E7%8D%8E%E4%BD%9C%E5%93%81', award: '校園創意生活海報 第一名', pages: ['https://i.postimg.cc/0QK8m9bk/unnamed.jpg'] },
   { id: 'tradition', cat: 'design', title: '傳統中創新', role: '平面設計・圖片調光', meta: '海報・2023', img: 'https://i.postimg.cc/L605pRgr/1149-3095.jpg', link: 'https://i.postimg.cc/L605pRgr/1149-3095.jpg', award: '金匠獎設計賽 入圍', pages: ['https://i.postimg.cc/L605pRgr/1149-3095.jpg'] },
+  { id: 'rainbow', cat: 'design', title: '《彩虹王國的冒險》兒童繪本', role: '故事・插畫｜作者', meta: '2023', img: `${base}photos/rainbow/01.jpg`, link: `${base}photos/rainbow/01.jpg`, award: '電創文潮兒童繪本創作比賽 參與獎', pages: Array.from({ length: 20 }, (_, i) => `${base}photos/rainbow/${String(i + 1).padStart(2, '0')}.jpg`) },
   { id: 'teacher2026', cat: 'design', title: '2026 優良教師頒獎典禮', role: '主視覺動態', meta: '2026', img: `${base}photos/teacher2026.jpg`, link: 'https://youtu.be/D32Dvojr1VI' },
   { id: 'teacher', cat: 'design', title: '2024 優良教師頒獎典禮', role: '背景動畫・動態特效', meta: '2024', img: 'https://i.postimg.cc/2SB4XYpN/shi-yi-jiang.png', link: 'https://youtu.be/8ouDHOD4_os' },
   { id: 'wmg', cat: 'design', title: '2025 雙北世壯運 轉播', role: 'Graphics Operator・虛擬攝影棚', meta: '2025', img: 'https://i.postimg.cc/wjshbzKB/shi-zhuang-yun.png', link: 'https://youtu.be/47Q5yZvX-pw' },
@@ -116,6 +117,7 @@ export const AWARDS = [
   { year: '2024', event: '校園創意生活海報設計競賽', result: '第一名', work: '《這裡是夢想開始的地方》' },
   { year: '2023', event: '銘傳大學 MV 發表會', result: '最佳 MV', work: '《同樣一個你》' },
   { year: '2023', event: '校園金馬獎', result: '佳作', work: '《無止 Noop》' },
+  { year: '2023', event: '戲谷 FunTown 電創文潮兒童繪本創作比賽', result: '參與獎', work: '《彩虹王國的冒險》' },
   { year: '2023', event: '金匠獎設計賽', result: '入圍', work: '《傳統中創新》' },
   { year: '—', event: '「拍桃園」短片徵件 橫式短片組', result: '佳作', work: '《隧道盡頭的光》' },
 ];
