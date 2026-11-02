@@ -56,7 +56,7 @@ export const WORKS: Work[] = [
 
   { id: 'food', cat: 'photo', title: '海邊有刺 美食攝影', role: '商品攝影・後製', meta: '2026', img: `${base}photos/food/02.jpg`, pos: 'center 45%', link: 'https://www.instagram.com/c.pause_tw/', pages: [1, 2, 3, 4].map((n) => `${base}photos/food/0${n}.jpg`) },
   { id: 'fencing', cat: 'photo', title: '全中運／全大運 擊劍', role: '轉播團隊攝影', meta: '運動攝影', img: 'https://i.postimg.cc/kgtxhCrJ/quan-zhong-yun-she-ying.png', link: 'https://drive.google.com/drive/folders/1GHPm56-B7MPqOGDLDF0G27n1HNKKkxN1?usp=sharing', pages: fencing },
-  { id: 'formosa', cat: 'photo', title: 'Formosa Clash', role: '攝影｜全英文指導外籍模特', meta: '畢業製作攝影集', img: 'https://i.postimg.cc/0Q32zbnr/ying-mu-jie-tu-2026-04-21-ling-chen2-48-48.png', link: 'https://drive.google.com/drive/folders/142T-IZTDtFBm84C7p5QI3cQ1KHYcCprP?usp=sharing', pages: [
+  { id: 'formosa', cat: 'photo', title: 'Formosa Clash', role: '攝影｜外籍模特攝影', meta: '畢業製作攝影集', img: 'https://i.postimg.cc/0Q32zbnr/ying-mu-jie-tu-2026-04-21-ling-chen2-48-48.png', link: 'https://drive.google.com/drive/folders/142T-IZTDtFBm84C7p5QI3cQ1KHYcCprP?usp=sharing', pages: [
     'https://i.postimg.cc/LXFmv6kM/ying-mu-jie-tu-2026-04-29-xia-wu1-02-58.png',
     'https://i.postimg.cc/wTqTSvCt/ying-mu-jie-tu-2026-04-29-xia-wu1-03-19.png',
     'https://i.postimg.cc/tCk7TP3s/ying-mu-jie-tu-2026-04-29-xia-wu1-03-39.png',
