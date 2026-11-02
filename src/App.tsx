@@ -435,15 +435,15 @@ export default function App() {
           <dl className="contact-list">
             <div>
               <dt className="mono label">EMAIL</dt>
-              <dd><a href="mailto:henrypakpak@gmail.com">henrypakpak@gmail.com</a></dd>
+              <dd><svg className="contact-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2" /><path d="m3 7 9 6 9-6" /></svg><a href="mailto:henrypakpak@gmail.com">henrypakpak@gmail.com</a></dd>
             </div>
             <div>
               <dt className="mono label">手機</dt>
-              <dd><a href="tel:+886933921903">0933 921 903</a></dd>
+              <dd><svg className="contact-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z" /></svg><a href="tel:+886933921903">0933 921 903</a></dd>
             </div>
             <div>
               <dt className="mono label">LINE</dt>
-              <dd>@hkhenryboy</dd>
+              <dd><svg className="contact-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M21 11.5c0 4.1-4 7.5-9 7.5-1 0-2-.1-2.9-.4L4 20.5l1.4-3.6C3.9 15.5 3 13.6 3 11.5 3 7.4 7 4 12 4s9 3.4 9 7.5z" /></svg><span>@hkhenryboy</span></dd>
             </div>
           </dl>
         </div>

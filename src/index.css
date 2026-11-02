@@ -141,7 +141,7 @@ section[id] { scroll-margin-top: 16px; }
 .contact-inner { padding-top: 96px; padding-bottom: 64px; }
 .contact-title { font-family: var(--serif); font-weight: 900; font-size: clamp(32px, 4vw, 52px); line-height: 1.2; }
 .contact-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 32px 48px; margin: 40px 0 0; }
-.contact-list dd { margin: 8px 0 0; font-size: clamp(20px, 2.2vw, 28px); font-weight: 500; overflow-wrap: anywhere; }
+.contact-list dd { display: flex; align-items: center; gap: 12px; margin: 8px 0 0; font-size: clamp(20px, 2.2vw, 28px); font-weight: 500; overflow-wrap: anywhere; }
 .contact-list a { border-bottom: 2px solid var(--accent); padding-bottom: 2px; }
 .footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; padding-top: 24px; padding-bottom: 24px; border-top: 1px solid var(--line); font-size: 12px; letter-spacing: .08em; color: var(--dim); }
 
@@ -181,3 +181,5 @@ section[id] { scroll-margin-top: 16px; }
 .card.static { cursor: default; }
 .card.static:hover .thumb { transform: none; }
 .card.static:hover .ctitle { color: inherit; }
+
+.contact-icon { flex: none; color: var(--accent); }
