@@ -177,3 +177,7 @@ section[id] { scroll-margin-top: 16px; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 }
+
+.card.static { cursor: default; }
+.card.static:hover .thumb { transform: none; }
+.card.static:hover .ctitle { color: inherit; }

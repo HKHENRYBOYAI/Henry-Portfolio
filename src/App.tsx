@@ -25,7 +25,7 @@ type Viewer =
 
 function viewerFor(w: Work): Viewer | null {
   if (w.pages && w.pages.length) return { kind: 'book', pages: w.pages, title: w.title, link: w.link };
-  const id = youtubeId(w.link);
+  const id = w.link ? youtubeId(w.link) : null;
   if (id) return { kind: 'video', id, title: w.title, link: w.link };
   return null;
 }
@@ -51,6 +51,7 @@ function WorkLink({ work, onOpen, className, children }: {
   work: Work; onOpen: (v: Viewer) => void; className?: string; children?: any; key?: string;
 }) {
   const v = viewerFor(work);
+  if (!work.link && !v) return <div className={`${className ?? ''} static`}>{children}</div>;
   return (
     <a
       className={className}
@@ -73,7 +74,7 @@ function Thumb({ work, pos }: { work: Work; pos?: string }) {
   return (
     <div className="thumb-wrap">
       <img className="thumb" src={work.img} alt="" loading="lazy" decoding="async" referrerPolicy="no-referrer" style={pos ? { objectPosition: pos } : undefined} />
-      <PlayBadge kind={v ? v.kind : 'link'} />
+      {(v || work.link) && <PlayBadge kind={v ? v.kind : 'link'} />}
     </div>
   );
 }

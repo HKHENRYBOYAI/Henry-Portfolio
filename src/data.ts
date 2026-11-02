@@ -16,7 +16,7 @@ export interface Work {
   role: string;
   meta: string;
   img: string;
-  link: string;
+  link: string; // 留空 '' 代表不附連結，卡片不可點
   award?: string;
   pages?: string[];
   pos?: string; // 縮圖裁切位置，例如 'center 55%'
@@ -39,7 +39,7 @@ export const WORKS: Work[] = [
   { id: 'alien', cat: 'direct', also: ['motion'], title: '我的阿嬤是外星人', role: '導演・編劇・攝影・剪輯', meta: '劇情長片', img: 'https://i.postimg.cc/Y0nNGNVL/Still-2025-09-12-011601-1-36-1.png', link: 'https://youtu.be/yNSRkhTBXkA', award: '第51屆藝美獎 最佳長片' },
   { id: 'harbor', cat: 'direct', also: ['motion'], title: '海港分局', role: '編劇・導演・攝影・剪輯', meta: '2024', img: 'https://i.ytimg.com/vi/T42roPDZz7E/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLDKfmiz77w8xZmsA2tASRHQDzyYRg', link: 'https://youtu.be/T42roPDZz7E', award: '海洋保育YTR 最佳年度創作獎' },
   { id: 'noop', cat: 'direct', also: ['motion'], title: '無止 Noop', role: '編劇・導演・攝影・剪輯', meta: '2023', img: 'https://i.postimg.cc/MZ1PGgd3/maxresdefault.jpg', link: 'https://youtu.be/6Q1uCk1cN88', award: '校園金馬獎 佳作' },
-  { id: 'road', cat: 'direct', also: ['motion'], title: '有你的路上', role: '導演・攝影', meta: '2025', img: 'https://i.postimg.cc/9Q0szJ4y/ying-mu-jie-tu-2026-04-21-ling-chen2-07-29.png', link: 'https://youtu.be/ypIa8XxrBMc', award: '職涯輔導心得競賽 評審獎' },
+  { id: 'road', cat: 'direct', also: ['motion'], title: '有你的路上', role: '導演・攝影', meta: '2025', img: 'https://i.postimg.cc/9Q0szJ4y/ying-mu-jie-tu-2026-04-21-ling-chen2-07-29.png', link: '', award: '職涯輔導心得競賽 評審獎' },
   { id: 'dark', cat: 'direct', also: ['motion'], title: '職場的黑暗序曲', role: '導演・攝影・剪輯｜個人微電影', meta: '短片', img: 'https://i.postimg.cc/0yHRCLg5/ying-mu-jie-tu-2026-04-21-ling-chen2-06-04.png', link: 'https://youtu.be/-9LCZ8lpLhs' },
   { id: 'same', cat: 'direct', also: ['motion'], title: '同樣一個你', role: '導演・攝影・剪輯｜銘傳電視台', meta: 'MV・2023', img: 'https://i.postimg.cc/NG89FxTf/ying-mu-jie-tu-2026-04-21-ling-chen1-45-25.png', link: 'https://youtu.be/hOnRCdSDy0w', award: 'MV 發表會 最佳MV' },
   { id: 'leaf', cat: 'direct', also: ['motion'], title: '阿桑《葉子》綺 Miranda 翻唱', role: '製片・導演・攝影・剪輯', meta: 'MV', img: 'https://i.postimg.cc/mgFQ6sv5/ye-zi-MV.png', link: 'https://youtu.be/Ov70xCmE3JI' },
