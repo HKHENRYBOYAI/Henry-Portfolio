@@ -260,6 +260,37 @@ export default function App() {
           </div>
         </section>
 
+        {/* INDEX */}
+        <section id="works" className="container section">
+          <div className="section-head">
+            <h2 className="h2">全部作品</h2>
+            <p className="mono label">INDEX — {WORKS.length} PROJECTS</p>
+          </div>
+          <div className="filters" role="group" aria-label="依專長篩選">
+            {CATEGORIES.map((c) => {
+              const n = c.key === 'all' ? WORKS.length : WORKS.filter((w) => inCat(w, c.key as Category)).length;
+              const active = filter === c.key;
+              return (
+                <button key={c.key} type="button" aria-pressed={active} className={`chip ${active ? 'active' : ''}`} onClick={() => setFilter(c.key)}>
+                  {c.label} <span className="mono count">{n}</span>
+                </button>
+              );
+            })}
+          </div>
+          {note && <p className="muted sm filter-note">{note}</p>}
+          <div className="grid">
+            {shown.map((w) => (
+              <WorkLink key={w.id} work={w} onOpen={setViewer} className="card">
+                <Thumb work={w} pos={w.pos} />
+                <p className="mono meta">{catLabel(w.cat)} · {w.meta}</p>
+                <h3 className="ctitle h4">{w.title}</h3>
+                <p className="muted sm">{w.role}</p>
+                {w.award && <p className="award sm-award">{w.award}</p>}
+              </WorkLink>
+            ))}
+          </div>
+        </section>
+
         {/* FEATURED */}
         <section className="container section" aria-labelledby="featured-h">
           <div className="section-head">
@@ -308,37 +339,6 @@ export default function App() {
                     <p className="muted sm">{f.desc}</p>
                   </div>
                 </div>
-              </WorkLink>
-            ))}
-          </div>
-        </section>
-
-        {/* INDEX */}
-        <section id="works" className="container section">
-          <div className="section-head">
-            <h2 className="h2">全部作品</h2>
-            <p className="mono label">INDEX — {WORKS.length} PROJECTS</p>
-          </div>
-          <div className="filters" role="group" aria-label="依專長篩選">
-            {CATEGORIES.map((c) => {
-              const n = c.key === 'all' ? WORKS.length : WORKS.filter((w) => inCat(w, c.key as Category)).length;
-              const active = filter === c.key;
-              return (
-                <button key={c.key} type="button" aria-pressed={active} className={`chip ${active ? 'active' : ''}`} onClick={() => setFilter(c.key)}>
-                  {c.label} <span className="mono count">{n}</span>
-                </button>
-              );
-            })}
-          </div>
-          {note && <p className="muted sm filter-note">{note}</p>}
-          <div className="grid">
-            {shown.map((w) => (
-              <WorkLink key={w.id} work={w} onOpen={setViewer} className="card">
-                <Thumb work={w} pos={w.pos} />
-                <p className="mono meta">{catLabel(w.cat)} · {w.meta}</p>
-                <h3 className="ctitle h4">{w.title}</h3>
-                <p className="muted sm">{w.role}</p>
-                {w.award && <p className="award sm-award">{w.award}</p>}
               </WorkLink>
             ))}
           </div>
