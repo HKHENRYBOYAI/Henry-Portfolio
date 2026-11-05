@@ -55,7 +55,7 @@ export const WORKS: Work[] = [
   { id: 'hallo', cat: 'edit', title: '《哈囉台》校園街訪', role: '企劃・剪輯', meta: '校內', img: 'https://i.postimg.cc/T2jL1cmb/ying-mu-jie-tu-2026-04-21-ling-chen1-39-52.png', link: 'https://youtu.be/rQGYjaJSk80' },
   { id: 'podcast', cat: 'edit', also: ['motion'], title: '《無界》性平議題 Podcast', role: '企劃・攝影・剪輯', meta: '校內', img: 'https://i.postimg.cc/y6hgxT9T/ying-mu-jie-tu-2026-04-21-ling-chen1-43-40.png', link: 'https://youtu.be/fI4A_cIn0B8' },
 
-  { id: 'food', cat: 'photo', title: '海邊有刺 美食攝影', role: '商品攝影・後製', meta: '2026', img: `${base}photos/food/02.jpg`, pos: 'center 45%', link: 'https://www.instagram.com/c.pause_tw/', pages: [1, 2, 3, 4].map((n) => `${base}photos/food/0${n}.jpg`) },
+  { id: 'food', cat: 'photo', title: '海邊有刺 美食攝影', role: '商品攝影・後製', meta: '2026', img: `${base}photos/food/02.jpg`, pos: 'center 45%', link: 'https://www.instagram.com/c.pause_tw/', pages: [1, 2, 3].map((n) => `${base}photos/food/0${n}.jpg`) },
   { id: 'fencing', cat: 'photo', title: '全中運／全大運 擊劍', role: '轉播團隊攝影', meta: '運動攝影', img: 'https://i.postimg.cc/kgtxhCrJ/quan-zhong-yun-she-ying.png', link: 'https://drive.google.com/drive/folders/1GHPm56-B7MPqOGDLDF0G27n1HNKKkxN1?usp=sharing', pages: fencing },
   { id: 'formosa', cat: 'photo', title: 'Formosa Clash', role: '攝影｜外籍模特攝影', meta: '畢業製作攝影集', img: 'https://i.postimg.cc/0Q32zbnr/ying-mu-jie-tu-2026-04-21-ling-chen2-48-48.png', link: 'https://drive.google.com/drive/folders/142T-IZTDtFBm84C7p5QI3cQ1KHYcCprP?usp=sharing', pages: [
     'https://i.postimg.cc/LXFmv6kM/ying-mu-jie-tu-2026-04-29-xia-wu1-02-58.png',
