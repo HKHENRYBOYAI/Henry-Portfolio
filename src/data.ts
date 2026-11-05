@@ -27,7 +27,7 @@ const fencing = Array.from({ length: 7 }, (_, i) => `${base}photos/fencing/${Str
 
 export const CATEGORIES: { key: Category | 'all'; label: string; note: string }[] = [
   { key: 'all', label: '全部', note: '依專長篩選。影片可在站內播放，攝影作品可直接翻閱。' },
-  { key: 'direct', label: '導演・劇情', note: '我自編自導、負責到底的作品。' },
+  { key: 'direct', label: '學生導演', note: '學生時期自編自導、負責到底的作品。' },
   { key: 'edit', label: '剪輯', note: '以剪接為主要角色的商業與頻道案。' },
   { key: 'motion', label: '動態攝影', note: '我有負責拍攝的影像作品。' },
   { key: 'wedding', label: '婚禮短影音', note: '婚禮產業的行銷短影音。' },
