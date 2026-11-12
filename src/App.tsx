@@ -21,9 +21,11 @@ function youtubeId(url: string): string | null {
 
 type Viewer =
   | { kind: 'video'; id: string; title: string; link: string }
+  | { kind: 'file'; src: string; poster: string; title: string; link: string }
   | { kind: 'book'; pages: string[]; title: string; link: string };
 
 function viewerFor(w: Work): Viewer | null {
+  if (w.video) return { kind: 'file', src: w.video, poster: w.img, title: w.title, link: w.link || w.video };
   if (w.pages && w.pages.length) return { kind: 'book', pages: w.pages, title: w.title, link: w.link };
   const id = w.link ? youtubeId(w.link) : null;
   if (id) return { kind: 'video', id, title: w.title, link: w.link };
@@ -74,7 +76,7 @@ function Thumb({ work, pos }: { work: Work; pos?: string }) {
   return (
     <div className="thumb-wrap">
       <img className="thumb" src={work.img} alt="" loading="lazy" decoding="async" referrerPolicy="no-referrer" style={pos ? { objectPosition: pos } : undefined} />
-      {(v || work.link) && <PlayBadge kind={v ? v.kind : 'link'} />}
+      {(v || work.link) && <PlayBadge kind={v ? (v.kind === 'file' ? 'video' : v.kind) : 'link'} />}
     </div>
   );
 }
@@ -133,7 +135,11 @@ function ViewerModal({ viewer, onClose }: { viewer: Viewer; onClose: () => void 
         </div>
       </div>
 
-      {viewer.kind === 'video' ? (
+      {viewer.kind === 'file' ? (
+        <div className="video-box vertical" onClick={(e) => e.stopPropagation()}>
+          <video src={viewer.src} poster={viewer.poster} controls autoPlay playsInline preload="metadata" />
+        </div>
+      ) : viewer.kind === 'video' ? (
         <div className="video-box" onClick={(e) => e.stopPropagation()}>
           <iframe
             src={`https://www.youtube-nocookie.com/embed/${viewer.id}?autoplay=1&rel=0&playsinline=1`}
