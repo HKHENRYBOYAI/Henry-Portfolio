@@ -21,11 +21,11 @@ function youtubeId(url: string): string | null {
 
 type Viewer =
   | { kind: 'video'; id: string; title: string; link: string }
-  | { kind: 'file'; src: string; poster: string; title: string; link: string }
+  | { kind: 'file'; videos: { label: string; src: string; poster: string }[]; title: string; link: string }
   | { kind: 'book'; pages: string[]; title: string; link: string };
 
 function viewerFor(w: Work): Viewer | null {
-  if (w.video) return { kind: 'file', src: w.video, poster: w.img, title: w.title, link: w.link || w.video };
+  if (w.videos && w.videos.length) return { kind: 'file', videos: w.videos, title: w.title, link: w.link };
   if (w.pages && w.pages.length) return { kind: 'book', pages: w.pages, title: w.title, link: w.link };
   const id = w.link ? youtubeId(w.link) : null;
   if (id) return { kind: 'video', id, title: w.title, link: w.link };
@@ -84,11 +84,11 @@ function Thumb({ work, pos }: { work: Work; pos?: string }) {
 // ---------- viewer (video / photobook) ----------
 
 function ViewerModal({ viewer, onClose }: { viewer: Viewer; onClose: () => void }) {
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(viewer.kind === 'file' ? viewer.videos.length - 1 : 0);
   const [dir, setDir] = useState<1 | -1>(1);
   const [failed, setFailed] = useState<Record<number, boolean>>({});
   const closeRef = useRef<HTMLButtonElement>(null);
-  const total = viewer.kind === 'book' ? viewer.pages.length : 0;
+  const total = viewer.kind === 'book' ? viewer.pages.length : viewer.kind === 'file' ? viewer.videos.length : 0;
 
   const go = useCallback((d: 1 | -1) => {
     setPage((p) => {
@@ -126,7 +126,7 @@ function ViewerModal({ viewer, onClose }: { viewer: Viewer; onClose: () => void 
   return (
     <div className="modal" role="dialog" aria-modal="true" aria-label={viewer.title} onClick={onClose}>
       <div className="modal-bar" onClick={(e) => e.stopPropagation()}>
-        <p className="modal-title">{viewer.title}</p>
+        <p className="modal-title">{viewer.kind === 'file' ? `${viewer.title}　${viewer.videos[page].label}` : viewer.title}</p>
         <div className="modal-actions">
           <a href={viewer.link} target="_blank" rel="noopener noreferrer" className="ghost-btn">原始連結</a>
           <button ref={closeRef} type="button" className="icon-btn" aria-label="關閉" onClick={onClose}>
@@ -136,8 +136,27 @@ function ViewerModal({ viewer, onClose }: { viewer: Viewer; onClose: () => void 
       </div>
 
       {viewer.kind === 'file' ? (
-        <div className="video-box vertical" onClick={(e) => e.stopPropagation()}>
-          <video src={viewer.src} poster={viewer.poster} controls autoPlay playsInline preload="metadata" />
+        <div
+          className="reel"
+          onClick={(e) => e.stopPropagation()}
+          onTouchStart={(e) => { touchX.current = e.touches[0].clientX; }}
+          onTouchEnd={(e) => {
+            if (touchX.current === null) return;
+            const dx = e.changedTouches[0].clientX - touchX.current;
+            if (Math.abs(dx) > 60) go(dx > 0 ? -1 : 1);
+            touchX.current = null;
+          }}
+        >
+          <button type="button" className="icon-btn book-nav" aria-label="上一集" disabled={page === 0} onClick={() => go(-1)}>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="m15 18-6-6 6-6" /></svg>
+          </button>
+          <div className="video-box vertical">
+            <video key={page} src={viewer.videos[page].src} poster={viewer.videos[page].poster} controls autoPlay playsInline preload="metadata" />
+          </div>
+          <button type="button" className="icon-btn book-nav" aria-label="下一集" disabled={page === total - 1} onClick={() => go(1)}>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="m9 18 6-6-6-6" /></svg>
+          </button>
+          {total > 1 && <p className="page-count">{viewer.videos[page].label.split('｜')[0]} · {page + 1} / {total}</p>}
         </div>
       ) : viewer.kind === 'video' ? (
         <div className="video-box" onClick={(e) => e.stopPropagation()}>

@@ -3,7 +3,7 @@
 //
 // 作品點擊後的行為由連結自動判斷：
 // - link 是 YouTube → 站內彈出播放
-// - 有 video（站內 mp4 路徑）→ 站內直式播放（9:16）
+// - 有 videos（站內 mp4 清單）→ 站內直式播放（9:16），左右箭頭換集
 // - 有 pages（圖片陣列）→ 站內攝影集翻頁
 // - 其他（Drive、IG、Google Sites…）→ 開新分頁
 
@@ -20,7 +20,7 @@ export interface Work {
   link: string; // 留空 '' 代表不附連結，卡片不可點
   award?: string;
   pages?: string[];
-  video?: string; // 站內影片檔（直式 9:16），點開在站內播放
+  videos?: { label: string; src: string; poster: string }[]; // 站內直式影片（9:16），依集數由舊到新排，點開先播最後一集，左右箭頭換集
   pos?: string; // 縮圖裁切位置，例如 'center 55%'
 }
 
@@ -93,9 +93,11 @@ export const WORKS: Work[] = [
   { id: 'dawu', cat: 'brand', also: ['motion'], title: '海尼根 × 大武山職場新人獎', role: '開場影片 拍攝・剪輯', meta: '2025', img: 'https://i.postimg.cc/tCp9vGhP/ying-mu-jie-tu-2026-04-21-shang-wu11-45-10.png', link: 'https://drive.google.com/file/d/1swMAm-KPya1MJ3SMtWv6M91dgSdbezCH/view?usp=sharing' },
   { id: 'heinekendesign', cat: 'brand', title: '海尼根 平面設計與素材整合', role: '海報・平面・素材', meta: '2025', img: 'https://i.postimg.cc/VkbjHwyS/hai-ni-gen-she-ji.png', link: 'https://i.postimg.cc/VkbjHwyS/hai-ni-gen-she-ji.png', pages: ['https://i.postimg.cc/VkbjHwyS/hai-ni-gen-she-ji.png'] },
   { id: 'dumbcam', cat: 'brand', title: 'DUMBCAM 傻瓜機', role: '網站・品牌・文案・社群', meta: '2024 — 至今', img: 'https://i.postimg.cc/vZJWRZfN/ying-mu-jie-tu-2026-04-21-ling-chen1-26-45.png', link: 'https://www.threads.com/@_dumbcam_' },
-  { id: 'dumbcam-ep03', cat: 'ai', title: 'DUMBCAM EP.03｜底片 ISO 怎麼選', role: '企劃・腳本・AI 自動化影片製作', meta: 'IG Reels・2026', img: `${base}photos/ai/dumbcam-ep03.jpg`, video: `${base}videos/dumbcam/ep03.mp4`, link: `${base}videos/dumbcam/ep03.mp4` },
-  { id: 'dumbcam-ep02', cat: 'ai', title: 'DUMBCAM EP.02｜逆光怎麼拍', role: '企劃・腳本・AI 自動化影片製作', meta: 'IG Reels・2026', img: `${base}photos/ai/dumbcam-ep02.jpg`, video: `${base}videos/dumbcam/ep02.mp4`, link: `${base}videos/dumbcam/ep02.mp4` },
-  { id: 'dumbcam-ep01', cat: 'ai', title: 'DUMBCAM EP.01｜九宮格構圖', role: '企劃・腳本・AI 自動化影片製作', meta: 'IG Reels・2026', img: `${base}photos/ai/dumbcam-ep01.jpg`, video: `${base}videos/dumbcam/ep01.mp4`, link: 'https://www.instagram.com/reel/DfpTnKcmHGf/' },
+  { id: 'dumbcam-ai', cat: 'ai', title: 'DUMBCAM AI Reels 系列', role: '企劃・腳本・AI 自動化影片製作', meta: 'IG Reels・2026・EP.01–03', img: `${base}photos/ai/dumbcam-ep03.jpg`, link: 'https://www.instagram.com/_dumbcam_/', videos: [
+    { label: 'EP.01｜九宮格構圖', src: `${base}videos/dumbcam/ep01.mp4`, poster: `${base}photos/ai/dumbcam-ep01.jpg` },
+    { label: 'EP.02｜逆光怎麼拍', src: `${base}videos/dumbcam/ep02.mp4`, poster: `${base}photos/ai/dumbcam-ep02.jpg` },
+    { label: 'EP.03｜底片 ISO 怎麼選', src: `${base}videos/dumbcam/ep03.mp4`, poster: `${base}photos/ai/dumbcam-ep03.jpg` },
+  ] },
 ];
 
 // 精選作品：第一個是大圖，第 2–3 個在右側，第 4–6 個在下排
